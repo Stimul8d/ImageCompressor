@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
+using System.Linq;
+using System.Threading;
 
 namespace ImageCompressor.Domain
 {
@@ -9,6 +11,7 @@ namespace ImageCompressor.Domain
     {
         private string directoryPath;
         public IEnumerable<ImageFile> Images { get; }
+        private const string CompressedPrefix = "_compressed_";
 
         public ImageDirectory(string directoryPath)
         {
@@ -16,7 +19,6 @@ namespace ImageCompressor.Domain
             var files = Directory.GetFiles(directoryPath);
 
             Images = new List<ImageFile>(GetImages(files));
-
         }
 
         private IEnumerable<ImageFile> GetImages(string[] files)
@@ -36,6 +38,7 @@ namespace ImageCompressor.Domain
             }
         }
 
+        //HACK: Move to ImageFile
         private bool IsSupportedImage(ImageFormat format)
         {
             return ImageFormat.Jpeg.Equals(format)
@@ -43,5 +46,34 @@ namespace ImageCompressor.Domain
                 || ImageFormat.Gif.Equals(format);
         }
 
+        //HACK: Move to ImageFile
+        private bool IsntTransparent(ImageFile file)
+        {
+            return (Image.FromFile(file.FilePath).Flags & 0x02) == 0;
+        }
+
+        //HACK: Move to ImageFile
+        private bool IsntCompressed(ImageFile file)
+        {
+            return !file.FilePath.Contains(CompressedPrefix);
+        }
+
+        //HACK: Move to ImageFile
+        private string GetNewPath(string path)
+        {
+            return Path.Combine(Path.GetDirectoryName(path),
+                   CompressedPrefix + Path.GetFileName(path));
+        }
+
+
+        public IEnumerable<CompressionResult> Compress(int quality)
+        {
+            var compressor = new FileCompressor();
+
+            return Images
+                .Where(IsntTransparent)
+                .Where(IsntCompressed)
+                .Select(i => compressor.CompressFile(i.FilePath, GetNewPath(i.FilePath), quality));
+        }
     }
 }

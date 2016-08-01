@@ -58,6 +58,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompressFiles\CompressFiles.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CompressFiles.feature</DependentUpon>
+    </Compile>
+    <Compile Include="CompressFiles\CompressFilesSteps.cs" />
     <Compile Include="LoadFiles\LoadFiles.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -71,6 +77,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="CompressFiles\CompressFiles.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>CompressFiles.feature.cs</LastGenOutput>
+    </None>
     <None Include="LoadFiles\LoadFiles.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>LoadFiles.feature.cs</LastGenOutput>
@@ -78,7 +88,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CompressFiles\" />
     <Folder Include="SwapFiles\" />
   </ItemGroup>
   <ItemGroup>
@@ -89,6 +98,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestDirectory\jpeg.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestDirectory\LargeJpeg.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TestDirectory\LargePng.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="TestDirectory\png.png">

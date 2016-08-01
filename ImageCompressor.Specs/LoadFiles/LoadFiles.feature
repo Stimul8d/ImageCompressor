@@ -3,7 +3,6 @@
 	I want to load them from a directory
 	So that they can be processed
 
-@mytag
 Scenario: Load Files From Directory
 	Given A directory containing various files
 	When I select a directory

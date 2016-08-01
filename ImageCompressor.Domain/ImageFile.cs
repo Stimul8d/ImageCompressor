@@ -4,13 +4,14 @@ namespace ImageCompressor.Domain
 {
     public class ImageFile
     {
-        private string file;
-        private ImageFormat format;
+        public string FilePath { get; }
+        public ImageFormat Format { get; }
 
-        public ImageFile(string file, ImageFormat format)
+        public ImageFile(string path, ImageFormat format)
         {
-            this.file = file;
-            this.format = format;
+            FilePath = path;
+            Format = format;
         }
+
     }
 }

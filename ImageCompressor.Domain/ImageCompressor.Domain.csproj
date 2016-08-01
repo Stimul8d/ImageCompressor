@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompressionResult.cs" />
+    <Compile Include="FileCompressor.cs" />
     <Compile Include="ImageFile.cs" />
     <Compile Include="ImageDirectory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
